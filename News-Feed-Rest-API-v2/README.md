@@ -1,10 +1,10 @@
-#Benzinga.com News Feed Rest API v2
+# Benzinga.com News Feed Rest API v2
 
-##Abstract
+## Abstract
 
 This document provides an outline to the Benzinga.com API access for News Data.
 
-##Connection
+## Connection
 
 Connect using the following URL structure:
 
@@ -17,7 +17,7 @@ http://api.benzinga.com/api/v2/news/\<id>?\<Parameters>
 [token] = <unique API token key>
 // unique api-key given to partner
 
-##Data
+## Data
 
 Data will be provided in XML or JSON form.  Upon success, it will return event data for specific calendars.  XML or JSON may be selected by passing the proper header.  XML is current default.  
 
