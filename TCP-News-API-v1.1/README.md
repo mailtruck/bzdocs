@@ -5,7 +5,7 @@
 All lines endings will be in the expected format:
 
 ```
-=BZEOT\r\n`
+=BZEOT\r\n
 ```
 
 ## Commands
@@ -45,7 +45,7 @@ SERVER> CONNECTED=BZEOT\r\n
 ```
 
 
-### NO Authentication Received
+### No Authentication Received
 
 Clients will receive the following disconnect message if no authentication message is received:
 
@@ -65,7 +65,7 @@ INVALID KEY=BZEOT\r\n
 INVALID KEY FORMAT=BZEOT\r\n
 ```
 
-### Multiple Connections**
+### Multiple Connections
 
 If multiple connections are needed in your environment, please contact us.
 
@@ -105,21 +105,21 @@ STREAM: {
   updated: 'Thu Jan 01 1970 00:00:00 GMT+0000 (UTC)',   // Revision Date, GMT
   link: 'http://www.benzinga.com/link/to/story',        // Link to Article
   channel: [                                            // Array of Channels
-      'CHANNEL',
-      'CHANNELX'
+    'CHANNEL',
+    'CHANNELX'
   ],
   tickers: ['A', 'B', 'C']                              // Array of Tickers
 }=BZEOT\r\n
 ```
 
-**EXAMPLE (with extended tickers):**
+**Example (with extended tickers):**
 
 ```
 STREAM: {
-  id: 1234567,	                                      // Unique ID of Story
-  title: 'TITLE OF STORY',	                          // TITLE of Article
+  id: 1234567,	                                        // Unique ID of Story
+  title: 'TITLE OF STORY',	                            // Title of Article
   body: 'BODY OF STORY',                                // Body of Article
-  status: ‘Published’,	                              // Published or Removed
+  status: ‘Published’,	                                // Published or Removed
   published: 'Thu Aug 09 2012 19:41:09 GMT+0000 (UTC)', // Published Date, GMT
   updated: 'Thu Jan 01 1970 00:00:00 GMT+0000 (UTC)',	  // Revision Date, GMT
   link: ‘http://www.benzinga.com/link/to/story’,	      // Link to the Article
@@ -129,9 +129,9 @@ STREAM: {
   ],
   tickers: [                                            // Array of Tickers
     {	
-      name: 'F',	                                  // Ticker Symbol
-      primary: 1,                                   // Denotes Primary Status (0, 1)
-      sentiment: false	                          // Sentiment (­-4 to 4) if available
+      name: 'F',	                                      // Ticker Symbol
+      primary: 1,                                       // Denotes Primary Status (0, 1)
+      sentiment: false	                                // Sentiment (-4 to 4) if available
     }
   ]
 }=BZEOT\r\n
@@ -179,15 +179,32 @@ definitions:
     definition: The Benzinga Channels or categories an article appears in. This array may be blank if no channels exist.
     example: [‘News’ , ‘Markets’ ]
 
-  tickers
+  tickers:
     type: array
-    definition: >-
-      array of symbols (or symbol objects if extended tickers)
-          
-      example: 
-        tickers: [‘F’, ‘GM’]
-        
-      example (extended):
-        tickers: [ { name: 'F', primary: 1, sentiment: false } ] 
+    definition: Array of symbols
+    items:
+      type: string
+      description: Ticker symbol
+    example: >- 
+      tickers: [‘F’, ‘GM’]
+       
+  tickers(extended):
+    type: array
+    description: Array of symbol objects
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The actual ticker symbol
+        primary:
+          type: integer
+          format: boolean
+          description: 1 if primary 0 if not
+        sentiment:
+          type: integer
+          description: Sentiment for this symbol as a result of this story (if available). -4 - 4 scale. FALSE if not available.
+      example: >-
+        tickers: [ { name: 'F', primary: 1, sentiment: 1 } ] 
 
 ```
